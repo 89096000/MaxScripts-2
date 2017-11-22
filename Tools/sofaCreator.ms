@@ -50,6 +50,15 @@ function createSofa largo_respaldo grosor_respaldo ancho_brazo \
 		
 		seat.weldThreshold = 0.1 
 		polyop.weldVertsByThreshold seat #{52..53, 59..60, 73, 78..80}
+
+		--Mapping
+
+		modPanel.addModToSelection (Unwrap_UVW ())
+		subobjectlevel = 3
+		numfaces = polyop.getNumFaces seat
+		seat.modifiers[#unwrap_uvw].unwrap6.selectFacesByNode #{1..numfaces} seat
+		seat.modifiers[#unwrap_uvw]flattenMap 360.0 #() 0.01 true 0 true true
+		seat.Unwrap_UVW.unwrap6.setPeltSelectedSeamsByNode #{3..4, 18..20, 28, 36, 44, 46..47, 52, 54..55, 62..65, 67, 69, 74, 78..79, 82..83, 85, 92, 95, 97, 101, 103, 110..111, 118..121, 125..126, 130..131, 134, 138..141, 155, 160..168, 170..174, 176, 178..184, 186..189} seat
 		
 	) else (
 
@@ -94,17 +103,17 @@ rollout sofa_creator "Creador de Sofás" width:169 height:246
 	label 'lbl8' "Largo posabrazos" pos:[15,171] width:122 height:19 align:#left
 	label 'lbl9' "Alto asiento" pos:[15,94] width:122 height:19 align:#left
 	
-	spinner 'largo_respaldo' "" pos:[112,35] width:60 height:16 range:[0,500,160] align:#left
-	spinner 'ancho_brazo' "" pos:[112,52] width:60 height:16 range:[0,500,20] align:#left
-	spinner 'ancho_asiento' "" pos:[112,68] width:60 height:16 range:[0,500,200] align:#left
+	spinner 'largo_respaldo' "" pos:[112,35] width:60 height:16 range:[10,500,160] align:#left
+	spinner 'ancho_brazo' "" pos:[112,52] width:60 height:16 range:[10,500,20] align:#left
+	spinner 'ancho_asiento' "" pos:[112,68] width:60 height:16 range:[10,500,200] align:#left
 	
-	spinner 'alto_asiento' "" pos:[112,95] width:60 height:16 range:[0,500,30] align:#left
-	spinner 'alto_brazo' "" pos:[112,111] width:60 height:16 range:[0,500,20] align:#left
-	spinner 'alto_respaldo' "" pos:[112,127] width:60 height:16 range:[0,500,40] align:#left
+	spinner 'alto_asiento' "" pos:[112,95] width:60 height:16 range:[10,500,30] align:#left
+	spinner 'alto_brazo' "" pos:[112,111] width:60 height:16 range:[10,500,20] align:#left
+	spinner 'alto_respaldo' "" pos:[112,127] width:60 height:16 range:[10,500,40] align:#left
 	
-	spinner 'largo_asiento' "" pos:[111,155] width:60 height:16 range:[0,500,100] align:#left
-	spinner 'largo_brazo' "" pos:[111,172] width:60 height:16 range:[0,500,60] align:#left
-	spinner 'grosor_respaldo' "" pos:[111,189] width:60 height:16 range:[0,500,20] align:#left
+	spinner 'largo_asiento' "" pos:[111,155] width:60 height:16 range:[10,500,100] align:#left
+	spinner 'largo_brazo' "" pos:[111,172] width:60 height:16 range:[10,500,60] align:#left
+	spinner 'grosor_respaldo' "" pos:[111,189] width:60 height:16 range:[10,500,20] align:#left
 	
 	
 	button 'create' "Create" pos:[35,217] width:90 height:18 align:#left
