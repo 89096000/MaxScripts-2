@@ -84,6 +84,13 @@ polyop.getElementsUsingFace obj_Poly <facelist> fence:<fence_facelist>
 
 
 
+--bucle for
+
+	for n = 1 to 10 do(
+	)
+
+
+
 
 	https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_B40F84EA_5F19_45B6_AA7C_0ADC77708BBE_htm#WS3ED54CBA79FF2E3D-417FC02312B7835BF26-6E6C
 
