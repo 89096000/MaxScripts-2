@@ -12,14 +12,23 @@ rollout BasicTools "Basic Tools" width:460 height:608
 	checkbox 'check_customize_import' "Customize" pos:[177,65] width:102 height:18 align:#left
 	checkbox 'check_customize_export' "Customize" pos:[177,90] width:102 height:18 align:#left
 	
-	groupBox 'grp2' "Order" pos:[51,148] width:359 height:96 align:#left
+	GroupBox 'grp2' "Order" pos:[51,148] width:359 height:96 align:#left
 	label 'lbl2' "Columns X Axis" pos:[60,167] width:75 height:14 align:#left	
 	label 'lbl3' "Columns Y Axis" pos:[60,189] width:75 height:14 align:#left
 	spinner 'spn_columnsX' "" pos:[143,167] width:61 height:16 range:[1,100,0] type:#integer align:#left
 	spinner 'spn_columnsY' "" pos:[143,188] width:61 height:16 range:[1,100,0] type:#integer align:#left
 	label 'lbl4' "Distance" pos:[218,177] width:70 height:14 align:#left
 	spinner 'spn_distance' "" pos:[264,177] width:61 height:16 range:[0,100,0] type:#float align:#left
-	button 'button_order' "Order Objets" pos:[168,218] width:99 height:17 align:#left
+	button 'button_order' "Order Objets" pos:[184,218] width:99 height:17 align:#left
+	
+	GroupBox 'grp6' "Resize" pos:[51,268] width:359 height:80 align:#left
+	label 'lbl9' "X Size" pos:[71,293] width:33 height:15 align:#left
+	label 'lbl10' "Y Size" pos:[184,293] width:33 height:15 align:#left
+	label 'lbl11' "Z Size" pos:[300,293] width:33 height:15 align:#left
+	spinner 'spnXS' "" pos:[104,292] width:62 height:16 range:[0,1000,0] align:#left
+	spinner 'spnYS' "" pos:[219,292] width:62 height:16 range:[0,1000,0] align:#left
+	spinner 'spnZS' "" pos:[336,292] width:62 height:16 range:[0,1000,0] align:#left
+	button 'btnRes' "Resize Selection" pos:[189,316] width:87 height:18 align:#left
 	
 	
 	on button_import pressed do
@@ -66,28 +75,51 @@ rollout BasicTools "Basic Tools" width:460 height:608
 			)
 		)
 	)
-		
-	on button_order pressed do (
-		
-		colX = (int)spn_columnsX.value
-		colY = (int)spn_columnsY.value
-		dst = (float)spn_distance.value
-		
-		selec = Selection as Array
-		
-		accDst = 0;
-		
-		i = 0
-		c_colX = 0
-		c_colY = 0
-		for obj in selec do(
-			obj.pos = [dst*c_colX, dst*c_colY, 0]
-			c_colX = c_colX + 1
-			if c_colX <= colX then(
-				c_colX = 1
-				c_colY = c_colY + 1
+	on button_order pressed do
+	(
+			
+			colX = (int)spn_columnsX.value
+			colY = (int)spn_columnsY.value
+			dst = (float)spn_distance.value
+			
+			selec = Selection as Array
+			
+			accDst = 0;
+			
+			i = 0
+			c_colX = 0
+			c_colY = 0
+			for obj in selec do(
+				obj.pos = [dst*c_colX, dst*c_colY, 0]
+				c_colX = c_colX + 1
+				if c_colX <= colX then(
+					c_colX = 1
+					c_colY = c_colY + 1
+				)
 			)
+	)
+		
+	on btnRes pressed do
+	(
+		selec = $selection as array
+		
+		for obj in selec do (
+			
+			select obj
+		
+			size = obj.max - obj.min
+			
+			xscale = spnXS.value / size.x
+			print xscale
+			yscale = spnYS.value / size.y
+			print yscale
+			zscale = spnZS.value / size.z
+			print zscale
+			
+			scale obj [xscale, yscale, zscale]		
+			
 		)
+		
 	)
 )
 
