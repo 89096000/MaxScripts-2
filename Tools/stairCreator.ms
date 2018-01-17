@@ -74,7 +74,8 @@ rollout stair_creator "Stair Creator" width:201 height:219
 	
 	on create pressed do(
 		
-		delete $
+		if $ != undefined then
+			delete $
 		createStairs 	spn_length.value spn_width.value spn_height.value \
 							spn_ms_length.value spn_ms_height.value
 		
