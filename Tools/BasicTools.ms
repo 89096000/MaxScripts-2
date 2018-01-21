@@ -66,6 +66,8 @@ rollout BasicTools "Basic Tools" width:460 height:608
 	on button_export pressed do
 	(
 		folder_path = getSavePath caption:"Select folder:"
+		folder_path += "\export"
+		makeDir folder_path
 		selec = Selection as Array
 		if dropdown_format.selection == 1 then( -- selection -> number / selected -> value string
 			export_end = "" --fbx is default format, no no need to write it
@@ -74,6 +76,9 @@ rollout BasicTools "Basic Tools" width:460 height:608
 		)
 		i = 0
 		for obj in selec do(
+			Select obj
+			obj.pivot = obj.min
+			prev_pos = obj.pos
 			obj.pos = [0,0,0]
 			if check_customize_export.checked == false then(
 				exportFile (folder_path + "\\" + obj.name + export_end) #noPrompt selectedOnly:true
@@ -84,6 +89,8 @@ rollout BasicTools "Basic Tools" width:460 height:608
 					exportFile (folder_path + "\\" + obj.name + export_end) #noPrompt selectedOnly:true
 				)
 			)
+			i += 1;
+			obj.pos = prev_pos
 		)
 	)
 	on button_order pressed do
